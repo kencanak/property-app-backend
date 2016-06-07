@@ -5,11 +5,11 @@ from Unit import unit
 # We want to run seamlessly our API both locally and on Heroku, so:
 if os.environ.get('PORT'):
     # We're hosted on Heroku! Use the MongoHQ sandbox as our backend.
-    MONGO_HOST = 'alex.mongohq.com'
-    MONGO_PORT = 10047
-    MONGO_USERNAME = '<user>'
-    MONGO_PASSWORD = '<pw>'
-    MONGO_DBNAME = '<dbname>'
+    MONGO_HOST = 'ds025583.mlab.com'
+    MONGO_PORT = 25583
+    MONGO_USERNAME = 'propertyapp'
+    MONGO_PASSWORD = 'propertyapp'
+    MONGO_DBNAME = 'property-app'
 else:
     # Running on local machine. Let's just use the local mongod instance.
 
