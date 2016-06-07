@@ -74,5 +74,6 @@ unit = {
 
     'schema': unitSchema,
     'public_methods': ['GET'],
-    'public_item_methods': ['GET']
+    'public_item_methods': ['GET'],
+    'X_DOMAINS': '*'
 }

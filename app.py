@@ -9,6 +9,8 @@ import jwt
 from eve.auth import TokenAuth
 import datetime
 import os
+from flask.ext.cors import CORS
+
 
 # Heroku support: bind to PORT if defined, otherwise default to 5000.
 if os.environ.get('PORT'):
@@ -61,6 +63,8 @@ class TokenAuth(TokenAuth):
 app = Eve(settings='settings.py', auth=TokenAuth)
 app.on_insert_user += before_insert_user
 app.on_update_user += before_update_user
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
