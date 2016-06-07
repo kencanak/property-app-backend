@@ -8,6 +8,7 @@ from settings import JWT_SECRET
 import jwt
 from eve.auth import TokenAuth
 import datetime
+import os
 
 # Heroku support: bind to PORT if defined, otherwise default to 5000.
 if 'PORT' in os.environ:
