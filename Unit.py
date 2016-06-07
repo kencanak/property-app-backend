@@ -72,5 +72,7 @@ unit = {
     # most global settings can be overridden at resource level
     'resource_methods': ['GET', 'POST', 'DELETE'],
 
-    'schema': unitSchema
+    'schema': unitSchema,
+    'public_methods': ['GET'],
+    'public_item_methods': ['GET']
 }

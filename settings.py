@@ -31,6 +31,5 @@ RESOURCE_METHODS = ['GET', 'POST', 'DELETE']
 ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 JWT_SECRET = 'flaskisawesome'
-JWT_ISSUER = 'apes'
 
 DOMAIN = {'user': user,'unit': unit}

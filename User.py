@@ -59,5 +59,7 @@ user = {
             'password': 0,
             'salt': 0
         }
-    }
+    },
+    'public_methods': ['GET','POST'],
+    'public_item_methods': ['GET','POST']
 }

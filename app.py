@@ -47,7 +47,7 @@ class TokenAuth(TokenAuth):
 
 
 
-app = Eve(settings='settings.py')
+app = Eve(settings='settings.py', auth=TokenAuth)
 app.on_insert_user += before_insert_user
 app.on_update_user += before_update_user
 
