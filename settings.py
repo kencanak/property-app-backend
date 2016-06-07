@@ -7,7 +7,7 @@ if os.environ.get('PORT'):
     # We're hosted on Heroku! Use the MongoHQ sandbox as our backend.
     MONGO_HOST = 'ds025583.mlab.com'
     MONGO_PORT = 25583
-    MONGO_USERNAME = 'propertyapp'
+    MONGO_USERNAME = 'property-app'
     MONGO_PASSWORD = 'propertyapp'
     MONGO_DBNAME = 'heroku_nrpmfm39'
 else:
