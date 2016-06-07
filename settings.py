@@ -9,7 +9,7 @@ if os.environ.get('PORT'):
     MONGO_PORT = 25583
     MONGO_USERNAME = 'propertyapp'
     MONGO_PASSWORD = 'propertyapp'
-    MONGO_DBNAME = 'property-app'
+    MONGO_DBNAME = 'heroku_nrpmfm39'
 else:
     # Running on local machine. Let's just use the local mongod instance.
 
