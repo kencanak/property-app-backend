@@ -9,7 +9,7 @@ import jwt
 from eve.auth import TokenAuth
 import datetime
 import os
-from flask.ext.cors import CORS
+from flask.ext.cors import CORS, cross_origin
 
 
 # Heroku support: bind to PORT if defined, otherwise default to 5000.
