@@ -67,6 +67,7 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/authenticate', methods=['POST'])
+@cross_origin()
 def authenticate():
     accounts = app.data.driver.db['user']
     account = accounts.find_one({'email': request.json['email']})
