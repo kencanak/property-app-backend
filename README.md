@@ -10,62 +10,76 @@
 1. Create Heroku account
 2. Clone the repo
 3. Let's install pip, virtualenv, foreman, and the heroku Ruby gem
-```
-    $ sudo easy_install pip
-    $ sudo pip install virtualenv
-    $ sudo gem install foreman heroku
-```
-4. Login to your heroku account from the terminal
-```
-    $ heroku login
-```
-5. Install all the dependency lib by using pip install, by right you shouldn't need to freeze the requirements.txt anymore, but should you have additional lib, please do so
-```
-    $ virtualenv --no-site-packages env
-    $ source env/bin/activate
-    $ pip freeze > requirements.txt
-```
-6. Go to the project root directory, make sure you have the Procfile (with no extension)
-```
-    $ heroku create
+
+    ```
+        $ sudo easy_install pip
+        $ sudo pip install virtualenv
+        $ sudo gem install foreman heroku
+    ```
     
-    The content of the Procfile
-    web: python app.py
-```
+4. Login to your heroku account from the terminal
+
+    ```
+        $ heroku login
+    ```
+    
+5. Install all the dependency lib by using pip install, by right you shouldn't need to freeze the requirements.txt anymore, but should you have additional lib, please do so
+
+    ```
+        $ virtualenv --no-site-packages env
+        $ source env/bin/activate
+        $ pip freeze > requirements.txt
+    ```
+    
+6. Go to the project root directory, make sure you have the Procfile (with no extension)
+
+    ```
+        $ heroku create
+        
+        The content of the Procfile
+        web: python app.py
+    ```
+    
 7. Adding in mLab as add-on, and grab the credentials
-```
-    $ heroku addons:create mongolab
-    $ heroku config | grep MONGODB_URI
-```
+
+    ```
+        $ heroku addons:create mongolab
+        $ heroku config | grep MONGODB_URI
+    ```
+    
 8. Edit your mongoDB connection config from setup.py
-```
-    $ git push heroku master
-    $ heroku ps:scale web=1
-    $ heroku ps //to check the status
-    $ heroku open // to launch the app
-```
+
+    ```
+        $ git push heroku master
+        $ heroku ps:scale web=1
+        $ heroku ps //to check the status
+        $ heroku open // to launch the app
+    ```
 
 # Deployed App
 1. https://mighty-coast-50618.herokuapp.com/
 
 # List of API
 -- you can use postman to simulate the API calls, please set Content-Type as application/json
+
 1. https://mighty-coast-50618.herokuapp.com/user (POST)
-```
-    {
-      "email": "a@a.com",
-      "password": "1234567",
-      "first_name": "kk",
-      "last_name": "kk"
-    }
-```
+
+    ```
+        {
+          "email": "a@a.com",
+          "password": "1234567",
+          "first_name": "kk",
+          "last_name": "kk"
+        }
+    ```
 
 2. https://mighty-coast-50618.herokuapp.com/authenticate (POST)
-```
-    {
-      "email": "a@a.com",
-      "password": "1234567"
-    }
-```
+
+    ```
+        {
+          "email": "a@a.com",
+          "password": "1234567"
+        }
+    ```
 
 The rest of API will be updated soon
