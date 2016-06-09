@@ -90,7 +90,7 @@ def register():
         if (account):
             userPass = hashlib.sha512(request.json['password'] + user['salt']).hexdigest()
             encoded = jwt.encode({'password': request.json['password'], 'email': user['email'], 'timestamp':  str(datetime.datetime.now().time())}, JWT_SECRET, algorithm='HS256')
-            return jsonify({"result": "success","token":encoded.decode('unicode_escape')})
+            return jsonify({"result": "success","token":encoded.decode('unicode_escape'), "me": account})
 
 
 
@@ -101,11 +101,12 @@ def authenticate():
     accounts = app.data.driver.db['user']
     account = accounts.find_one({'email': request.json['email']})
 
+
     if (account):
         userPass = hashlib.sha512(request.json['password'] + account['salt']).hexdigest()
         if (account and account['password'] == userPass):
             encoded = jwt.encode({'password': request.json['password'], 'email': account['email'], 'timestamp':  str(datetime.datetime.now().time())}, JWT_SECRET, algorithm='HS256')
-            return jsonify({"result": "success","token":encoded.decode('unicode_escape')})
+            return jsonify({"result": "success","token":encoded.decode('unicode_escape'),"me": str(account['_id'])})
 
     return jsonify({"result":"failed","message":"authentication failed"})
 
