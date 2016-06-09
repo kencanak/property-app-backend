@@ -37,4 +37,17 @@
 1. https://mighty-coast-50618.herokuapp.com/
 
 # List of API
--Coming Soon-
+-- you can use postman to simulate the API calls, please set Content-Type as application/json
+1. https://mighty-coast-50618.herokuapp.com/user
+{
+  "email": "a@a.com",
+  "password": "1234567",
+  "first_name": "kk",
+  "last_name": "kk"
+}
+
+2. https://mighty-coast-50618.herokuapp.com/authenticate
+{
+  "email": "a@a.com",
+  "password": "1234567"
+}
