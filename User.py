@@ -61,5 +61,6 @@ user = {
         }
     },
     'public_methods': ['GET','POST'],
-    'public_item_methods': ['GET','POST']
+    'public_item_methods': ['GET','POST'],
+    'X_DOMAINS': '*'
 }

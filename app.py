@@ -8,6 +8,19 @@ from settings import JWT_SECRET
 import jwt
 from eve.auth import TokenAuth
 import datetime
+import os
+from flask.ext.cors import CORS, cross_origin
+
+
+# Heroku support: bind to PORT if defined, otherwise default to 5000.
+if os.environ.get('PORT'):
+    port = int(os.environ.get('PORT'))
+    # use '0.0.0.0' to ensure your REST API is reachable from all your
+    # network (and not only your computer).
+    host = '0.0.0.0'
+else:
+    port = 5000
+    host = '127.0.0.1'
 
 def generate_salt():
     return uuid.uuid4().hex
@@ -50,8 +63,11 @@ class TokenAuth(TokenAuth):
 app = Eve(settings='settings.py', auth=TokenAuth)
 app.on_insert_user += before_insert_user
 app.on_update_user += before_update_user
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/authenticate', methods=['POST'])
+@cross_origin()
 def authenticate():
     accounts = app.data.driver.db['user']
     account = accounts.find_one({'email': request.json['email']})
@@ -65,4 +81,4 @@ def authenticate():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host=host, port=port, debug=True)
