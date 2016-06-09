@@ -34,6 +34,9 @@ def before_insert_user(users):
     for user in users:
         user = sanitize_user_credential(user)
 
+
+
+
 def before_update_user(updates, original):
     user = sanitize_user_credential(updates)
 
@@ -59,12 +62,38 @@ class TokenAuth(TokenAuth):
             return jsonify({"result":"failed","message": "invalid token"})
 
 
-
 app = Eve(settings='settings.py', auth=TokenAuth)
 app.on_insert_user += before_insert_user
 app.on_update_user += before_update_user
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
+
+@app.route('/register', methods=['POST'])
+@cross_origin()
+def register():
+    accounts = app.data.driver.db['user']
+    account = accounts.find_one({'email': request.json['email']})
+
+    if (account):
+        return jsonify({"result":"failed","message":"account already exists"})
+    else:
+        user = {
+            "first_name": request.json["first_name"],
+            "last_name": request.json["last_name"],
+            "email": request.json["email"],
+            "password": request.json["password"]
+        }
+
+        user = sanitize_user_credential(user)
+        account = accounts.insert(user)
+
+        if (account):
+            userPass = hashlib.sha512(request.json['password'] + user['salt']).hexdigest()
+            encoded = jwt.encode({'password': request.json['password'], 'email': user['email'], 'timestamp':  str(datetime.datetime.now().time())}, JWT_SECRET, algorithm='HS256')
+            return jsonify({"result": "success","token":encoded.decode('unicode_escape')})
+
+
+
 
 @app.route('/authenticate', methods=['POST'])
 @cross_origin()
@@ -72,12 +101,13 @@ def authenticate():
     accounts = app.data.driver.db['user']
     account = accounts.find_one({'email': request.json['email']})
 
-    userPass = hashlib.sha512(request.json['password'] + account['salt']).hexdigest()
-    if (account and account['password'] == userPass):
-        encoded = jwt.encode({'password': request.json['password'], 'email': account['email'], 'timestamp':  str(datetime.datetime.now().time())}, JWT_SECRET, algorithm='HS256')
-        return jsonify({"result": "success","token":encoded.decode('unicode_escape')})
-    else:
-        return jsonify({"result":"failed","message":"authentication failed"})
+    if (account):
+        userPass = hashlib.sha512(request.json['password'] + account['salt']).hexdigest()
+        if (account and account['password'] == userPass):
+            encoded = jwt.encode({'password': request.json['password'], 'email': account['email'], 'timestamp':  str(datetime.datetime.now().time())}, JWT_SECRET, algorithm='HS256')
+            return jsonify({"result": "success","token":encoded.decode('unicode_escape')})
+
+    return jsonify({"result":"failed","message":"authentication failed"})
 
 
 if __name__ == '__main__':

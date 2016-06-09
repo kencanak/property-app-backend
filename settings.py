@@ -32,4 +32,6 @@ ITEM_METHODS = ['GET', 'PATCH', 'PUT', 'DELETE']
 
 JWT_SECRET = 'flaskisawesome'
 
+X_DOMAINS = '*'
+
 DOMAIN = {'user': user,'unit': unit}
